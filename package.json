@@ -1,0 +1,20 @@
+{
+    "name": "connect-coffee-script",
+    "version": "0.0.0",
+    "description": "Simple connect middleware to serve CoffeeScript files",
+    "author": "David Worms <david@adaltas.com>",
+    "contributors": [ 
+        { "name": "David Worms", "email": "david@adaltas.com" }
+    ],
+    "engines": { "node": ">= 0.8.0" },
+    "dependencies" : {
+        "coffee-script" : "latest",
+        "debug" : "latest",
+        "mkdirp": "latest"
+    },
+    "keywords": ["connect", "express", "coffeescript"],
+    "repository": {
+        "type" : "git",
+        "url" : "https://github.com/wdavidw/node-connect-coffeescript.git"
+    }
+}

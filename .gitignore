@@ -1,0 +1,4 @@
+.*
+!.gitignore
+/sample/public
+/node_modules
