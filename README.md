@@ -4,7 +4,7 @@ It provide a simple [Connect] middleware to serve CoffeeScript files. It is mode
 
 This project was created after the drop of native support for CoffeeScript in latest [Express]. More specifically, [Express] droped the compiler middleware in its versions 2 and 3 (the current versions at the time of this writing).
 
-Read the [annoucement article] for more information.
+Read the [annoucement article][annoucement] for more information.
 
 # Installation
 
