@@ -14,23 +14,6 @@ Using npm:
 npm install connect-coffee-script
 ```
 
-# Usage
-
-Calling the function returned by the module will return a [Connect] middleware with the given `options`.
-
-Options:
-
-     `force`         Always re-compile
-     `src`             Source directory used to find .styl files
-     `dest`            Destination directory used to output .css files
-                             when undefined defaults to `src`.
-     `compile`     Custom compile function, accepting the arguments
-                             `(str, options)`.
-
-     `bare`            Compile without a top-level function wrapper
-
-# Example
-
 Usage
 -----
 
