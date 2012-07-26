@@ -6,7 +6,7 @@
     "contributors": [ 
         { "name": "David Worms", "email": "david@adaltas.com" }
     ],
-    "engines": { "node": ">= 0.8.0" },
+    "engines": { "node": ">= 0.6.0" },
     "dependencies" : {
         "coffee-script" : "latest",
         "debug" : "latest",
