@@ -15,6 +15,6 @@
     "keywords": ["connect", "express", "coffeescript"],
     "repository": {
         "type" : "git",
-        "url" : "https://github.com/wdavidw/node-connect-coffeescript.git"
+        "url" : "https://github.com/wdavidw/node-connect-coffee-script.git"
     }
 }
