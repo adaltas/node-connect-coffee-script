@@ -1,10 +1,17 @@
-
 coffeeScript = require 'coffee-script'
 fs = require 'fs'
 path = require 'path'
 url = require 'url'
 mkdirp = require 'mkdirp'
 debug = require('debug')('connect-coffee-script');
+
+clone = (src) ->
+    if src is Object(src)
+        if toString.call(src) is '[object Array]'
+            src.slice()
+        else
+            obj = {}
+            obj[prop] = src[prop] for prop, val in src
 
 ###
 
@@ -30,7 +37,7 @@ module.exports = (options = {}) ->
 
     # Default compile callback
     options.compile ?= (str, options) ->
-        coffeeScript.compile str, options
+        coffeeScript.compile str, clone(options)
 
     # Middleware
     (req, res, next) ->
