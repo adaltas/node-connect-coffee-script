@@ -12,6 +12,11 @@
         "debug" : "latest",
         "mkdirp": "latest"
     },
+    "devDependencies" : {
+        "rimraf" : "latest",
+        "mocha": "latest",
+        "should": "latest"
+    },
     "keywords": ["connect", "express", "coffeescript"],
     "repository": {
         "type" : "git",

@@ -1,4 +1,2 @@
 
-require('coffee-script');
-
-module.exports = require('./lib/middleware')
+module.exports = require('./lib/middleware');
