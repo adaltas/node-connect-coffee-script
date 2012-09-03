@@ -23,9 +23,10 @@ Options:
 
     `force`     Always re-compile
     `src`       Source directory used to find .styl files
-    `dest`      Destination directory used to output .css files when undefined defaults to `src`.
-    `compile`   Custom compile function, accepting the arguments `(str, options)`.
+    `dest`      Destination directory used to output .css files when undefined defaults to `src`
+    `compile`   Custom compile function, accepting the arguments `(str, options)`
     `bare`      Compile without a top-level function wrapper
+    `baseDir`   Base directory for path resolution
 
 Basic example
 -------------
@@ -89,5 +90,14 @@ app.use(connect.static(__dirname + '/public'));
 [stylus]:       http://learnboost.github.com/stylus/
 [express]:      http://expressjs.com/
 [annoucement]:  http://www.adaltas.com/blog/2012/07/24/coffee-script-connect-middleware/
+
+Contributors
+------------
+
+*   David Worms : <https://github.com/wdavidw>
+*   Dave Wasmer : <https://github.com/davewasmer>
+
+
+
 
 
