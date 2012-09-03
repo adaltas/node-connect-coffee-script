@@ -28,12 +28,17 @@ module.exports = (options = {}) ->
     if typeof options is 'string'
         options = src: options
 
+    # Base directory
+    baseDir = options.baseDir or process.cwd()
+
     # Source dir required
     src = options.src
     throw new Error 'Coffeescript middleware requires "src" directory' unless src
+    src = path.resolve baseDir, src
 
     # Default dest dir to source
     dest = if options.dest then options.dest else src
+    dest = path.resolve baseDir, dest
 
     # Default compile callback
     options.compile ?= (str, options) ->
