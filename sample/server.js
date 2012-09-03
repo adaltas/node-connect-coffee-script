@@ -15,7 +15,7 @@ function compile(str, options) {
 }
 
 app.use(connectCoffeeScript({
-    src: __dirname,
+    src: __dirname + '/view',
     dest: __dirname + '/public',
     compile: compile
 }));
