@@ -23,3 +23,5 @@ app.use(connectCoffeeScript({
 app.use(connect.static(__dirname + '/public'));
 
 app.listen(3000)
+
+console.log('http://localhost:3000/test.js');
