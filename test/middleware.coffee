@@ -1,8 +1,8 @@
 
 fs = require 'fs'
-middleware = require '../lib/middleware'
 rimraf = require 'rimraf'
 should = require 'should'
+middleware = if process.env.COFFEE_COV then require '../lib-cov/middleware' else require '../lib/middleware'
 
 describe 'middleware', ->
 
