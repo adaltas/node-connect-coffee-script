@@ -1,28 +1,28 @@
 {
-    "name": "connect-coffee-script",
-    "version": "0.0.5",
-    "description": "Simple connect middleware to serve CoffeeScript files",
-    "author": "David Worms <david@adaltas.com>",
-    "contributors": [ 
-        { "name": "David Worms", "email": "david@adaltas.com" }
-    ],
-    "engines": { "node": ">= 0.6.0" },
-    "dependencies" : {
-        "debug" : "latest",
-        "mkdirp": "latest"
-    },
-    "devDependencies" : {
-        "coffee-script" : "latest",
-        "rimraf" : "latest",
-        "mocha": "latest",
-        "should": "latest"
-    },
-    "keywords": ["connect", "express", "coffeescript"],
-    "repository": {
-        "type" : "git",
-        "url" : "https://github.com/wdavidw/node-connect-coffee-script.git"
-    },
-    "scripts": {
-        "test": "make test"
-    }
+  "name": "connect-coffee-script",
+  "version": "0.0.5",
+  "description": "Simple connect middleware to serve CoffeeScript files",
+  "author": "David Worms <david@adaltas.com>",
+  "contributors": [ 
+    { "name": "David Worms", "email": "david@adaltas.com" }
+  ],
+  "engines": { "node": ">= 0.6.0" },
+  "dependencies" : {
+    "debug" : "latest",
+    "mkdirp": "latest"
+  },
+  "devDependencies" : {
+    "coffee-script" : "latest",
+    "rimraf" : "latest",
+    "mocha": "latest",
+    "should": "latest"
+  },
+  "keywords": ["connect", "express", "coffeescript"],
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/wdavidw/node-connect-coffee-script.git"
+  },
+  "scripts": {
+    "test": "make test"
+  }
 }

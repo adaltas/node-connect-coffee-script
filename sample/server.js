@@ -10,14 +10,14 @@ var connect = require('connect');
 var app = connect();
 
 function compile(str, options) {
-    options.bare = true;
-    return coffeeScript.compile(str, options);
+  options.bare = true;
+  return coffeeScript.compile(str, options);
 }
 
 app.use(connectCoffeeScript({
-    src: __dirname + '/view',
-    dest: __dirname + '/public',
-    compile: compile
+  src: __dirname + '/view',
+  dest: __dirname + '/public',
+  compile: compile
 }));
 
 app.use(connect.static(__dirname + '/public'));

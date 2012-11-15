@@ -23,12 +23,12 @@ Function returning a [Connect] middleware with the given `options`.
 
 Options:
 
-    `force`     Always re-compile
-    `src`       Source directory used to find .coffee files
-    `dest`      Destination directory used to output .js files when undefined defaults to `src`
-    `compile`   Custom compile function, accepting the arguments `(str, options)`
-    `bare`      Compile without a top-level function wrapper
-    `baseDir`   Base directory for path resolution
+*   `force`     Always re-compile
+*   `src`       Source directory used to find .coffee files
+*   `dest`      Destination directory used to output .js files when undefined defaults to `src`
+*   `compile`   Custom compile function, accepting the arguments `(str, options)`
+*   `bare`      Compile without a top-level function wrapper
+*   `baseDir`   Base directory for path resolution
 
 Basic example
 -------------
@@ -42,8 +42,8 @@ var connect = require('connect');
 var app = connect();
 
 app.use(coffeescript({
-    src: __dirname,
-    bare: true
+  src: __dirname,
+  bare: true
 }));
 
 app.use(connect.static(__dirname + '/public'));
@@ -61,8 +61,8 @@ By default the compile function simply renders the JavaScript.
 
 ```javascript
 function compile(str, options) {
-    options.bare = true;
-    return coffeeScript.compile(str, options);
+  options.bare = true;
+  return coffeeScript.compile(str, options);
 }
 ```
 
@@ -80,9 +80,9 @@ var connect = require('connect');
 var app = connect();
 
 app.use(connectCoffeescript({
-    src: __dirname,
-    dest: __dirname + '/public',
-    compile: compile
+  src: __dirname,
+  dest: __dirname + '/public',
+  compile: compile
 }));
 
 app.use(connect.static(__dirname + '/public'));
