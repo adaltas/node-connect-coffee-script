@@ -16,21 +16,24 @@ describe 'middleware', ->
         method: 'GET'
       res = {}
       middleware(options) req, res, () ->
-        fs.exists "#{__dirname}/../sample/public/test.js", (exists) ->
-          exists.should.be.ok
+        fs.readFile "#{__dirname}/../sample/public/test.js", 'utf8', (err, content) ->
+          should.not.exist err
+          content.should.eql "(function() {\n\n  alert(\'welcome\');\n\n}).call(this);\n"
           next()
 
-  it 'should honor the base directory', (next) ->
+  it 'should honor the base directory and bare option', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->
       options =
         baseDir: "#{__dirname}/../sample"
         src: './view'
         dest: './public'
+        bare: true
       req =
         url: 'http://localhost/test.js'
         method: 'GET'
       res = {}
       middleware(options) req, res, () ->
-        fs.exists "#{__dirname}/../sample/public/test.js", (exists) ->
-          exists.should.be.ok
+        fs.readFile "#{__dirname}/../sample/public/test.js", 'utf8', (err, content) ->
+          should.not.exist err
+          content.should.eql "\nalert(\'welcome\');\n"
           next()

@@ -6,12 +6,11 @@ mkdirp = require 'mkdirp'
 debug = require('debug')('connect-coffee-script');
 
 clone = (src) ->
-    if src is Object(src)
-        if toString.call(src) is '[object Array]'
-            src.slice()
-        else
-            obj = {}
-            obj[prop] = src[prop] for prop, val in src
+    return unless typeof src is 'object'
+    return src.slice() if Array.isArray src
+    obj = {}
+    for prop, val of src then obj[prop] = val
+    obj
 
 ###
 
