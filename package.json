@@ -9,11 +9,11 @@
   ],
   "engines": { "node": ">= 0.6.0" },
   "dependencies" : {
+    "coffee-script" : "latest",
     "debug" : "latest",
     "mkdirp": "latest"
   },
   "devDependencies" : {
-    "coffee-script" : "latest",
     "rimraf" : "latest",
     "mocha": "latest",
     "should": "latest"
