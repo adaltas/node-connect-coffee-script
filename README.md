@@ -29,6 +29,7 @@ Options:
 *   `compile`   Custom compile function, accepting the arguments `(str, options)`
 *   `bare`      Compile without a top-level function wrapper
 *   `baseDir`   Base directory for path resolution
+*   `prefix`    Path which should be stripped from `src`
 
 Basic example
 -------------

@@ -37,3 +37,20 @@ describe 'middleware', ->
           should.not.exist err
           content.should.eql "\nalert(\'welcome\');\n"
           next()
+
+  it 'should strip path', (next) ->
+    rimraf "#{__dirname}/../sample/public", (err) ->
+      options =
+        baseDir: "#{__dirname}/prefix"
+        src: './view/coffee'
+        dest: './public/js'
+        prefix: '/js'
+      req =
+        url: 'http://localhost/js/test.js'
+        method: 'GET'
+      res = {}
+      middleware(options) req, res, () ->
+        fs.readFile "#{__dirname}/prefix/public/js/test.js", 'utf8', (err, content) ->
+          should.not.exist err
+          content.should.eql "(function() {\n\n  alert(\'welcome\');\n\n}).call(this);\n"
+          fs.unlink "#{__dirname}/prefix/public/js/test.js", next
