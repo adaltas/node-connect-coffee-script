@@ -64,7 +64,7 @@ module.exports = (options = {}) ->
         fs.readFile coffeePath, 'utf8', (err, str) ->
           return error err if err
           try
-            js = options.compile str, options
+            js = options.compile str, options, coffeePath
           catch err
             return next err
           debug('render %s', coffeePath);
