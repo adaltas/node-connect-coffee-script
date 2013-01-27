@@ -63,6 +63,10 @@ module.exports = (options = {}) ->
         debug 'read %s', jsPath
         fs.readFile coffeePath, 'utf8', (err, str) ->
           return error err if err
+          # If `options` is passed to `coffeeScript.compile` (as it is in the
+          # default `options.compile` function), `coffeeScript.compile` will
+          # put `options.filename` in error messages. Set `options.filename`!
+          options.filename = coffeePath
           try
             js = options.compile str, options
           catch err

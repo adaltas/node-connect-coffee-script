@@ -54,3 +54,16 @@ describe 'middleware', ->
           should.not.exist err
           content.should.eql "(function() {\n\n  alert(\'welcome\');\n\n}).call(this);\n"
           fs.unlink "#{__dirname}/prefix/public/js/test.js", next
+
+  it 'should show filename on error', (next) ->
+    rimraf "#{__dirname}/../sample/public", (err) ->
+      options =
+        src: "#{__dirname}/error/view"
+        dest: "#{__dirname}/error/public"
+      req =
+        url: 'http://localhost/test.js'
+        method: 'GET'
+      res = {}
+      middleware(options) req, res, (err) ->
+        err.message.should.eql "In #{__dirname}/error/view/test.coffee, Parse error on line 2: Unexpected '''"
+        next()
