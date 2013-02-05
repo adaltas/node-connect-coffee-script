@@ -68,7 +68,7 @@ module.exports = (options = {}) ->
           # put `options.filename` in error messages. Set `options.filename`!
           options.filename = coffeePath
           try
-            js = options.compile str, options
+            js = options.compile str, options, coffeePath
           catch err
             return next err
           debug('render %s', coffeePath);

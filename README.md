@@ -61,7 +61,7 @@ set the `bare` option, or define additional functions.
 By default the compile function simply renders the JavaScript.
 
 ```javascript
-function compile(str, options) {
+function compile(str, options, coffeePath) {
   options.bare = true;
   return coffeeScript.compile(str, options);
 }
