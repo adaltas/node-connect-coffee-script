@@ -90,8 +90,8 @@ module.exports = (options = {}) ->
               js = "#{mapHeader}\n#{js}"
 
             fs.writeFile jsPath, js, 'utf8', ->
-              if map?
-                fs.writeFile mapFile, map, 'utf8', next
+              return next() unless map?
+              fs.writeFile mapFile, map, 'utf8', next
 
       # Force compilation
       return compile() if options.force
