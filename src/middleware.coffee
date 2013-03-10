@@ -68,13 +68,30 @@ module.exports = (options = {}) ->
           # put `options.filename` in error messages. Set `options.filename`!
           options.filename = coffeePath
           try
-            js = options.compile str, options, coffeePath
+            result = options.compile str, options, coffeePath
+
+            # when `options.sourceMap` presents, the compliation result is in
+            # the following form:
+            # {js: 'js code', v3SourceMap: 'map code', sourceMap: {...v4map object...}}
+            map = result.v3SourceMap
+            js = if map? then result.js else result
           catch err
             return next err
           debug('render %s', coffeePath);
           mkdirp path.dirname(jsPath), 0o0700, (err) ->
             return error err if err
-            fs.writeFile jsPath, js, 'utf8', next
+            if map? 
+              mapFile = jsPath.replace /\.js$/, '.map'
+              mapPath = pathname.replace /\.js$/, '.map'
+
+              # Special comment at the end that is required to signify to WebKit dev tools
+              # that a source map is available:
+              mapHeader = "//@ sourceMappingURL=#{mapPath}\n"
+              js = "#{mapHeader}\n#{js}"
+
+            fs.writeFile jsPath, js, 'utf8', ->
+              if map?
+                fs.writeFile mapFile, map, 'utf8', next
 
       # Force compilation
       return compile() if options.force
