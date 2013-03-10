@@ -100,6 +100,7 @@ Contributors
 *   David Worms : <https://github.com/wdavidw>
 *   Dave Wasmer : <https://github.com/davewasmer>
 *   Simon Lydell: <https://github.com/lydell>
+*   Garry Yao   : <https://github.com/garryyao>
 
 
 
