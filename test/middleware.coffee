@@ -21,6 +21,30 @@ describe 'middleware', ->
           content.should.eql "(function() {\n\n  alert(\'welcome\');\n\n}).call(this);\n"
           next()
 
+  it 'should compile with force option', (next) ->
+    rimraf "#{__dirname}/../sample/public", (err) ->
+      options =
+        src: "#{__dirname}/../sample/view"
+        dest: "#{__dirname}/../sample/public"
+        force: true
+      req =
+        url: 'http://localhost/test.js'
+        method: 'GET'
+      res = {}
+      middleware(options) req, res, () ->
+        fs.stat "#{__dirname}/../sample/public/test.js", (err, stat) ->
+          mtime = stat.mtime
+          setTimeout ->
+            middleware(options) req, res, () ->
+              fs.stat "#{__dirname}/../sample/public/test.js", (err, stat) ->
+                # File should be modified
+                mtime.should.be.below stat.mtime
+                fs.readFile "#{__dirname}/../sample/public/test.js", 'utf8', (err, content) ->
+                  should.not.exist err
+                  content.should.eql "(function() {\n\n  alert(\'welcome\');\n\n}).call(this);\n"
+                  next()
+          , 500
+
   it 'should honor the base directory and bare option', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->
       options =
