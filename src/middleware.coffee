@@ -62,6 +62,8 @@ module.exports = (options = {}) ->
           # default `options.compile` function), `coffeeScript.compile` will
           # put `options.filename` in error messages. Set `options.filename`!
           options.filename = coffeePath
+          options.generatedFile = path.basename(pathname);
+          options.sourceFiles = [path.basename(pathname, '.js') + '.coffee'];
           try
             result = options.compile str, options, coffeePath
 
@@ -79,10 +81,10 @@ module.exports = (options = {}) ->
               mapFile = jsPath.replace /\.js$/, '.map'
               mapPath = pathname.replace /\.js$/, '.map'
               mapPath = options.replacePrefix + mapPath if options.replacePrefix
+              mapFooter = "//@ sourceMappingURL=#{mapPath}\n"
               # Special comment at the end that is required to signify to WebKit dev tools
               # that a source map is available:
-              mapHeader = "//@ sourceMappingURL=#{mapPath}\n"
-              js = "#{mapHeader}\n#{js}"
+              js = "#{js}\n\n#{mapFooter}"
             fs.writeFile jsPath, js, 'utf8', ->
               return next() unless map?
               fs.writeFile mapFile, map, 'utf8', next
