@@ -41,10 +41,7 @@ module.exports = (options = {}) ->
   (req, res, next) ->
     return next() if 'GET' isnt req.method and 'HEAD' isnt req.method
     pathname = url.parse(req.url).pathname
-    return next() if options.inspectPrefix and 0 isnt pathname.indexOf options.inspectPrefix
     if /\.js$/.test pathname
-      if options.replacePrefix and 0 is pathname.indexOf options.replacePrefix
-        pathname = pathname.substring options.replacePrefix.length
       if options.prefix and 0 is pathname.indexOf options.prefix
         pathname = pathname.substring options.prefix.length
       jsPath = path.join dest, pathname
@@ -79,8 +76,7 @@ module.exports = (options = {}) ->
             return error err if err
             if map?
               mapFile = jsPath.replace /\.js$/, '.map'
-              mapPath = pathname.replace /\.js$/, '.map'
-              mapPath = options.replacePrefix + mapPath if options.replacePrefix
+              mapPath = (options.sourceMapRoot ? '') + pathname.replace /\.js$/, '.map'
               mapFooter = "//@ sourceMappingURL=#{mapPath}\n"
               # Special comment at the end that is required to signify to WebKit dev tools
               # that a source map is available:

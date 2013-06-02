@@ -62,21 +62,21 @@ describe 'middleware', ->
           content.should.eql "alert(\'welcome\');\n"
           next()
 
-  it 'should strip and replace path', (next) ->
+  it 'prepend the sourcemap location with the sourceMapRoot', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->
       options =
-        src: "#{__dirname}/../sample/view"
+        src: "#{__dirname}/../sample/view",
         dest: "#{__dirname}/../sample/public",
         sourceMap: true,
-        replacePrefix: "/static"
+        sourceMapRoot: '/static'
       req =
-        url: 'http://localhost/static/test.js'
+        url: 'http://localhost/test.js'
         method: 'GET'
       res = {}
       middleware(options) req, res, () ->
         fs.readFile "#{__dirname}/../sample/public/test.js", 'utf8', (err, content) ->
           should.not.exist err
-          content.should.eql "//@ sourceMappingURL=/static/test.map\n\n(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
+          content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n\n\n//@ sourceMappingURL=/static/test.map\n"
           next()
 
   it 'should strip path', (next) ->
@@ -96,42 +96,6 @@ describe 'middleware', ->
           content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
           fs.unlink "#{__dirname}/prefix/public/js/test.js"
           next()
-
-  it 'should kick in when the inspectPrefix matches', (next) ->
-    rimraf "#{__dirname}/../sample/public", (err) ->
-      options =
-          baseDir: "#{__dirname}/prefix"
-          src: './view/coffee'
-          dest: './public/js'
-          prefix: '/js'
-          inspectPrefix: '/js'
-        req =
-          url: 'http://localhost/js/test.js'
-          method: 'GET'
-        res = {}
-        middleware(options) req, res, () ->
-          fs.readFile "#{__dirname}/prefix/public/js/test.js", 'utf8', (err, content) ->
-            should.not.exist err
-            content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
-            fs.unlink "#{__dirname}/prefix/public/js/test.js"
-            next()
-
-  it 'should do nothing when the inspectPrefix does not match', (next) ->
-    rimraf "#{__dirname}/../sample/public", (err) ->
-      options =
-          baseDir: "#{__dirname}/prefix"
-          src: './view/coffee'
-          dest: './public/js'
-          prefix: '/js'
-          inspectPrefix: '/co'
-        req =
-          url: 'http://localhost/js/test.js'
-          method: 'GET'
-        res = {}
-        middleware(options) req, res, () ->
-          fs.exists "#{__dirname}/prefix/public/js/test.js", (exists) ->
-            exists.should.not.be.ok
-            next()
 
   it 'should show filename on error', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->

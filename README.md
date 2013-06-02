@@ -31,6 +31,7 @@ Options:
 *   `baseDir`   Base directory for path resolution
 *   `prefix`    Path which should be stripped from `src`
 *   `sourceMap` Generates source map files
+*   `sourceMapRoot` but added back to the sourceMap url.
 
 Basic example
 -------------
