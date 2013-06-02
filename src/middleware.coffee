@@ -47,9 +47,6 @@ module.exports = (options = {}) ->
         pathname = pathname.substring options.replacePrefix.length
       if options.prefix and 0 is pathname.indexOf options.prefix
         pathname = pathname.substring options.prefix.length
-    if /\.js$/.test pathname
-      if options.replacePrefix and 0 is pathname.indexOf options.replacePrefix
-        pathname = pathname.substring options.replacePrefix.length
       jsPath = path.join dest, pathname
       coffeePath = path.join src, pathname.replace '.js', '.coffee'
       # Ignore ENOENT to fall through as 404
