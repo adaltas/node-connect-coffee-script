@@ -41,6 +41,7 @@ module.exports = (options = {}) ->
   (req, res, next) ->
     return next() if 'GET' isnt req.method and 'HEAD' isnt req.method
     pathname = url.parse(req.url).pathname
+    return next() if options.inspectPrefix and 0 isnt pathname.indexOf options.inspectPrefix
     if /\.js$/.test pathname
       if options.prefix and 0 is pathname.indexOf options.prefix
         pathname = pathname.substring options.prefix.length

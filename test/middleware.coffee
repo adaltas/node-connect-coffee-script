@@ -77,7 +77,44 @@ describe 'middleware', ->
         fs.readFile "#{__dirname}/prefix/public/js/test.js", 'utf8', (err, content) ->
           should.not.exist err
           content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
-          fs.unlink "#{__dirname}/prefix/public/js/test.js", next
+          fs.unlink "#{__dirname}/prefix/public/js/test.js"
+          next()
+
+  it 'should kick in when the inspectPrefix matches', (next) ->
+    rimraf "#{__dirname}/../sample/public", (err) ->
+      options =
+          baseDir: "#{__dirname}/prefix"
+          src: './view/coffee'
+          dest: './public/js'
+          prefix: '/js'
+          inspectPrefix: '/js'
+        req =
+          url: 'http://localhost/js/test.js'
+          method: 'GET'
+        res = {}
+        middleware(options) req, res, () ->
+          fs.readFile "#{__dirname}/prefix/public/js/test.js", 'utf8', (err, content) ->
+            should.not.exist err
+            content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
+            fs.unlink "#{__dirname}/prefix/public/js/test.js"
+            next()
+
+  it 'should do nothing when the inspectPrefix does not match', (next) ->
+    rimraf "#{__dirname}/../sample/public", (err) ->
+      options =
+          baseDir: "#{__dirname}/prefix"
+          src: './view/coffee'
+          dest: './public/js'
+          prefix: '/js'
+          inspectPrefix: '/co'
+        req =
+          url: 'http://localhost/js/test.js'
+          method: 'GET'
+        res = {}
+        middleware(options) req, res, () ->
+          fs.exists "#{__dirname}/prefix/public/js/test.js", (exists) ->
+            exists.should.not.be.ok
+            next()
 
   it 'should show filename on error', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->
