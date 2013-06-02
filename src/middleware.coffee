@@ -45,6 +45,9 @@ module.exports = (options = {}) ->
     if /\.js$/.test pathname
       if options.prefix and 0 is pathname.indexOf options.prefix
         pathname = pathname.substring options.prefix.length
+    if /\.js$/.test pathname
+      if options.replacePrefix and 0 is pathname.indexOf options.replacePrefix
+        pathname = pathname.substring options.replacePrefix.length
       jsPath = path.join dest, pathname
       coffeePath = path.join src, pathname.replace '.js', '.coffee'
       # Ignore ENOENT to fall through as 404
@@ -73,9 +76,10 @@ module.exports = (options = {}) ->
           debug('render %s', coffeePath);
           mkdirp path.dirname(jsPath), 0o0700, (err) ->
             return error err if err
-            if map? 
+            if map?
               mapFile = jsPath.replace /\.js$/, '.map'
               mapPath = pathname.replace /\.js$/, '.map'
+              mapPath = options.replacePrefix + mapPath if options.replacePrefix
               # Special comment at the end that is required to signify to WebKit dev tools
               # that a source map is available:
               mapHeader = "//@ sourceMappingURL=#{mapPath}\n"

@@ -62,6 +62,23 @@ describe 'middleware', ->
           content.should.eql "alert(\'welcome\');\n"
           next()
 
+  it 'should strip and replace path', (next) ->
+    rimraf "#{__dirname}/../sample/public", (err) ->
+      options =
+        src: "#{__dirname}/../sample/view"
+        dest: "#{__dirname}/../sample/public",
+        sourceMap: true,
+        replacePrefix: "/static"
+      req =
+        url: 'http://localhost/static/test.js'
+        method: 'GET'
+      res = {}
+      middleware(options) req, res, () ->
+        fs.readFile "#{__dirname}/../sample/public/test.js", 'utf8', (err, content) ->
+          should.not.exist err
+          content.should.eql "//@ sourceMappingURL=/static/test.map\n\n(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
+          next()
+
   it 'should strip path', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->
       options =
