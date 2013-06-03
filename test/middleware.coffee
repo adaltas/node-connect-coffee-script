@@ -18,7 +18,7 @@ describe 'middleware', ->
       middleware(options) req, res, () ->
         fs.readFile "#{__dirname}/../sample/public/test.js", 'utf8', (err, content) ->
           should.not.exist err
-          content.should.eql "(function() {\n\n  alert(\'welcome\');\n\n}).call(this);\n"
+          content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
           next()
 
   it 'should compile with force option', (next) ->
@@ -41,7 +41,7 @@ describe 'middleware', ->
                 mtime.should.be.below stat.mtime
                 fs.readFile "#{__dirname}/../sample/public/test.js", 'utf8', (err, content) ->
                   should.not.exist err
-                  content.should.eql "(function() {\n\n  alert(\'welcome\');\n\n}).call(this);\n"
+                  content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
                   next()
           , 500
 
@@ -59,7 +59,24 @@ describe 'middleware', ->
       middleware(options) req, res, () ->
         fs.readFile "#{__dirname}/../sample/public/test.js", 'utf8', (err, content) ->
           should.not.exist err
-          content.should.eql "\nalert(\'welcome\');\n"
+          content.should.eql "alert(\'welcome\');\n"
+          next()
+
+  it 'prepend the sourcemap location with the sourceMapRoot', (next) ->
+    rimraf "#{__dirname}/../sample/public", (err) ->
+      options =
+        src: "#{__dirname}/../sample/view",
+        dest: "#{__dirname}/../sample/public",
+        sourceMap: true,
+        sourceMapRoot: '/static'
+      req =
+        url: 'http://localhost/test.js'
+        method: 'GET'
+      res = {}
+      middleware(options) req, res, () ->
+        fs.readFile "#{__dirname}/../sample/public/test.js", 'utf8', (err, content) ->
+          should.not.exist err
+          content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n\n\n//@ sourceMappingURL=/static/test.map\n"
           next()
 
   it 'should strip path', (next) ->
@@ -76,8 +93,9 @@ describe 'middleware', ->
       middleware(options) req, res, () ->
         fs.readFile "#{__dirname}/prefix/public/js/test.js", 'utf8', (err, content) ->
           should.not.exist err
-          content.should.eql "(function() {\n\n  alert(\'welcome\');\n\n}).call(this);\n"
-          fs.unlink "#{__dirname}/prefix/public/js/test.js", next
+          content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
+          fs.unlink "#{__dirname}/prefix/public/js/test.js"
+          next()
 
   it 'should show filename on error', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->

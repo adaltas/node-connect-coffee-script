@@ -4,7 +4,7 @@
   "description": "Simple connect middleware to serve CoffeeScript files",
   "homepage": "https://github.com/wdavidw/node-connect-coffee-script",
   "author": "David Worms <david@adaltas.com>",
-  "contributors": [ 
+  "contributors": [
     { "name": "David Worms", "email": "david@adaltas.com" },
     { "name": "Dave Wasmer", "email": "davewasmer@gmail.com" },
     { "name": "Simon Lydell" },
