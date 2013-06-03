@@ -8,7 +8,8 @@
     { "name": "David Worms", "email": "david@adaltas.com" },
     { "name": "Dave Wasmer", "email": "davewasmer@gmail.com" },
     { "name": "Simon Lydell" },
-    { "name": "Garry Yao", "email": "yaojun85@gmail.com" }
+    { "name": "Garry Yao", "email": "yaojun85@gmail.com" },
+    { "name": "Vishnu Iyengar" }
   ],
   "engines": { "node": ">= 0.6.0" },
   "dependencies" : {
