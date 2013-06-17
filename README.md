@@ -23,14 +23,15 @@ Function returning a [Connect] middleware with the given `options`.
 
 Options:
 
-*   `force`     Always re-compile
-*   `src`       Source directory used to find .coffee files
-*   `dest`      Destination directory used to output .js files when undefined defaults to `src`
-*   `compile`   Custom compile function, accepting the arguments `(str, options)`
-*   `bare`      Compile without a top-level function wrapper
-*   `baseDir`   Base directory for path resolution
-*   `prefix`    Path which should be stripped from `src`
-*   `sourceMap` Generates source map files
+*   `force`         Always re-compile
+*   `src`           Source directory used to find .coffee files
+*   `dest`          Destination directory used to output .js files when undefined defaults to `src`
+*   `compile`       Custom compile function, accepting the arguments `(str, options)`
+*   `bare`          Compile without a top-level function wrapper
+*   `baseDir`       Base directory for path resolution
+*   `newPrefix`     Use the new declaration (`//#` instead of `//@`)
+*   `prefix`        Path which should be stripped from `src`
+*   `sourceMap`     Generates source map files
 *   `sourceMapRoot` but added back to the sourceMap url.
 
 Basic example
