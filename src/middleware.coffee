@@ -76,11 +76,12 @@ module.exports = (options = {}) ->
             return error err if err
             if map?
               mapFile = jsPath.replace /\.js$/, '.map'
-              mapPath = (options.sourceMapRoot ? '') + pathname.replace /\.js$/, '.map'
-            if options.newPrefix
-              mapFooter = "//# sourceMappingURL=#{mapPath}\n"
-            else  
-              mapFooter = "//@ sourceMappingURL=#{mapPath}\n"
+              mapPath = 
+                (options.sourceMapRoot ? '') + pathname.replace /\.js$/, '.map'
+              mapFooter = """
+                //# sourceMappingURL=#{mapPath}
+                //@ sourceMappingURL=#{mapPath}
+              """
               # Special comment at the end that is required to signify to WebKit dev tools
               # that a source map is available:
               js = "#{js}\n\n#{mapFooter}"
