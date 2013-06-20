@@ -1,4 +1,5 @@
 coffeeScript = require 'coffee-script'
+{prettyErrorMessage} = require 'coffee-script/lib/coffee-script/helpers'
 fs = require 'fs'
 path = require 'path'
 url = require 'url'
@@ -36,7 +37,13 @@ module.exports = (options = {}) ->
   dest = path.resolve baseDir, dest
   # Default compile callback
   options.compile ?= (str, options) ->
-    coffeeScript.compile str, clone(options)
+    try
+      coffeeScript.compile str, clone(options)
+    catch err
+      # See helpers.prettyErrorMessage
+      # err.message = "#{fileName}:#{first_line + 1}:#{first_column + 1}: error: #{error.message}"
+      err.message = prettyErrorMessage err, options.filename, str, false
+      throw err
   # Middleware
   (req, res, next) ->
     return next() if 'GET' isnt req.method and 'HEAD' isnt req.method

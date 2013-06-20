@@ -76,7 +76,7 @@ describe 'middleware', ->
       middleware(options) req, res, () ->
         fs.readFile "#{__dirname}/../sample/public/test.js", 'utf8', (err, content) ->
           should.not.exist err
-          content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n\n\n//@ sourceMappingURL=/static/test.map\n"
+          content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n\n\n//# sourceMappingURL=/static/test.map\n//@ sourceMappingURL=/static/test.map"
           next()
 
   it 'should strip path', (next) ->
@@ -107,5 +107,9 @@ describe 'middleware', ->
         method: 'GET'
       res = {}
       middleware(options) req, res, (err) ->
-        err.message.should.eql "In #{__dirname}/error/view/test.coffee, Parse error on line 2: Unexpected '''"
+        err.message.should.eql """
+        #{__dirname}/error/view/test.coffee:2:7: error: unexpected '
+        alert 'welcome
+              ^
+        """
         next()
