@@ -3,13 +3,14 @@
   "version": "0.1.5",
   "description": "Simple connect middleware to serve CoffeeScript files",
   "homepage": "https://github.com/wdavidw/node-connect-coffee-script",
-  "author": "David Worms <david@adaltas.com>",
+  "author": "David Worms <david@adaltas.com> (http://www.adaltas.com)",
   "contributors": [
-    { "name": "David Worms", "email": "david@adaltas.com" },
-    { "name": "Dave Wasmer", "email": "davewasmer@gmail.com" },
-    { "name": "Simon Lydell" },
-    { "name": "Garry Yao", "email": "yaojun85@gmail.com" },
-    { "name": "Vishnu Iyengar" }
+    "David Worms <david@adaltas.com> (http://www.adaltas.com)",
+    "Dave Wasmer <davewasmer@gmail.com> (https://github.com/davewasmer)",
+    "Simon Lydell (https://github.com/lydell)",
+    "Garry Yao <yaojun85@gmail.com> (https://github.com/garryyao)",
+    "Vishnu Iyengar (https://github.com/pathsny)",
+    "Junyuan (https://github.com/conan007ai)"
   ],
   "engines": { "node": ">= 0.6.0" },
   "dependencies" : {
