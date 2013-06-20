@@ -6,7 +6,7 @@ middleware = if process.env.COFFEE_COV then require '../lib-cov/middleware' else
 
 describe 'middleware', ->
 
-  it 'should compile a coffee file', (next) ->
+  it 'compiles a coffee file', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->
       options =
         src: "#{__dirname}/../sample/view"
@@ -21,7 +21,7 @@ describe 'middleware', ->
           content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
           next()
 
-  it 'should compile with force option', (next) ->
+  it 'honors with force option', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->
       options =
         src: "#{__dirname}/../sample/view"
@@ -45,7 +45,7 @@ describe 'middleware', ->
                   next()
           , 500
 
-  it 'should honor the base directory and bare option', (next) ->
+  it 'honors the base directory and bare option', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->
       options =
         baseDir: "#{__dirname}/../sample"
@@ -62,7 +62,7 @@ describe 'middleware', ->
           content.should.eql "alert(\'welcome\');\n"
           next()
 
-  it 'prepend the sourcemap location with the sourceMapRoot', (next) ->
+  it 'prepends the sourcemap location with the sourceMapRoot', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->
       options =
         src: "#{__dirname}/../sample/view",
@@ -79,7 +79,7 @@ describe 'middleware', ->
           content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n\n\n//# sourceMappingURL=/static/test.map\n//@ sourceMappingURL=/static/test.map"
           next()
 
-  it 'should strip path', (next) ->
+  it 'strips path', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->
       options =
         baseDir: "#{__dirname}/prefix"
@@ -97,7 +97,7 @@ describe 'middleware', ->
           fs.unlink "#{__dirname}/prefix/public/js/test.js"
           next()
 
-  it 'should show filename on error', (next) ->
+  it 'shows filename on error', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->
       options =
         src: "#{__dirname}/error/view"
