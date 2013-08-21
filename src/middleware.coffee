@@ -101,9 +101,9 @@ module.exports = (options = {}) ->
       fs.stat coffeePath, (err, coffeeStats) ->
         return error err if err
         fs.stat jsPath, (err, jsStats) ->
-          # JS has not been compiled, compile it!
           if err
             if 'ENOENT' is err.code
+              # JS has not been compiled, compile it!
               debug 'not found %s', jsPath
               compile()
             else

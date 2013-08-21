@@ -15,7 +15,8 @@ describe 'middleware', ->
         url: 'http://localhost/test.js'
         method: 'GET'
       res = {}
-      middleware(options) req, res, () ->
+      middleware(options) req, res, (err) ->
+        return next err if err
         fs.readFile "#{__dirname}/../sample/public/test.js", 'utf8', (err, content) ->
           should.not.exist err
           content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
@@ -31,11 +32,13 @@ describe 'middleware', ->
         url: 'http://localhost/test.js'
         method: 'GET'
       res = {}
-      middleware(options) req, res, () ->
+      middleware(options) req, res, (err) ->
+        return next err if err
         fs.stat "#{__dirname}/../sample/public/test.js", (err, stat) ->
           mtime = stat.mtime
           setTimeout ->
-            middleware(options) req, res, () ->
+            middleware(options) req, res, (err) ->
+              return next err if err
               fs.stat "#{__dirname}/../sample/public/test.js", (err, stat) ->
                 # File should be modified
                 mtime.should.be.below stat.mtime
@@ -43,7 +46,24 @@ describe 'middleware', ->
                   should.not.exist err
                   content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
                   next()
-          , 500
+          , 1000
+
+  it 'creates subdirectories', (next) ->
+    rimraf "#{__dirname}/../sample/public", (err) ->
+      options =
+        src: "#{__dirname}/mkdir/view"
+        dest: "#{__dirname}/mkdir/public"
+      req =
+        url: 'http://localhost/js/test.js'
+        method: 'GET'
+      res = {}
+      middleware(options) req, res, (err) ->
+        return next err if err
+        fs.readFile "#{__dirname}/mkdir/public/js/test.js", 'utf8', (err, content) ->
+          should.not.exist err
+          content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
+          fs.unlink "#{__dirname}/mkdir/public/js/test.js"
+          next()
 
   it 'should honor the base directory and bare option', (next) ->
     rimraf "#{__dirname}/../sample/public", (err) ->
@@ -56,7 +76,8 @@ describe 'middleware', ->
         url: 'http://localhost/test.js'
         method: 'GET'
       res = {}
-      middleware(options) req, res, () ->
+      middleware(options) req, res, (err) ->
+        return next err if err
         fs.readFile "#{__dirname}/../sample/public/test.js", 'utf8', (err, content) ->
           should.not.exist err
           content.should.eql "alert(\'welcome\');\n"
@@ -73,7 +94,8 @@ describe 'middleware', ->
         url: 'http://localhost/test.js'
         method: 'GET'
       res = {}
-      middleware(options) req, res, () ->
+      middleware(options) req, res, (err) ->
+        return next err if err
         fs.readFile "#{__dirname}/../sample/public/test.js", 'utf8', (err, content) ->
           should.not.exist err
           content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n\n\n//# sourceMappingURL=/static/test.map\n//@ sourceMappingURL=/static/test.map"
@@ -90,7 +112,8 @@ describe 'middleware', ->
         url: 'http://localhost/js/test.js'
         method: 'GET'
       res = {}
-      middleware(options) req, res, () ->
+      middleware(options) req, res, (err) ->
+        return next err if err
         fs.readFile "#{__dirname}/prefix/public/js/test.js", 'utf8', (err, content) ->
           should.not.exist err
           content.should.eql "(function() {\n  alert(\'welcome\');\n\n}).call(this);\n"
