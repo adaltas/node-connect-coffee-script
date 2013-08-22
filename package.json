@@ -19,8 +19,9 @@
     "mkdirp": "~0.3"
   },
   "devDependencies" : {
-    "rimraf" : "latest",
+    "connect" : "latest",
     "mocha": "latest",
+    "rimraf" : "latest",
     "should": "latest"
   },
   "keywords": ["connect", "express", "coffeescript"],
