@@ -1,2 +1,2 @@
 
-alert 'welcome
+alert """welcome

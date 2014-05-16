@@ -1,5 +1,5 @@
 coffeeScript = require 'coffee-script'
-{prettyErrorMessage} = require 'coffee-script/lib/coffee-script/helpers'
+{updateSyntaxError} = require 'coffee-script/lib/coffee-script/helpers'
 fs = require 'fs'
 path = require 'path'
 url = require 'url'
@@ -40,9 +40,7 @@ module.exports = (options = {}) ->
     try
       coffeeScript.compile str, clone(options)
     catch err
-      # See helpers.prettyErrorMessage
-      # err.message = "#{fileName}:#{first_line + 1}:#{first_column + 1}: error: #{error.message}"
-      err.message = prettyErrorMessage err, options.filename, str, false
+      updateSyntaxError err, null, options.filename
       throw err
   # Middleware
   (req, res, next) ->
@@ -66,11 +64,10 @@ module.exports = (options = {}) ->
           # default `options.compile` function), `coffeeScript.compile` will
           # put `options.filename` in error messages. Set `options.filename`!
           options.filename = coffeePath
-          options.generatedFile = path.basename(pathname);
-          options.sourceFiles = [path.basename(pathname, '.js') + '.coffee'];
+          options.generatedFile = path.basename(pathname)
+          options.sourceFiles = [path.basename(pathname, '.js') + '.coffee']
           try
             result = options.compile str, options, coffeePath
-
             # when `options.sourceMap` presents, the compliation result is in
             # the following form:
             # {js: 'js code', v3SourceMap: 'map code', sourceMap: {...v4map object...}}

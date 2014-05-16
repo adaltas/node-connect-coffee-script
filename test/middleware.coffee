@@ -130,9 +130,10 @@ describe 'middleware', ->
         method: 'GET'
       res = {}
       middleware(options) req, res, (err) ->
-        err.message.should.eql """
-        #{__dirname}/error/view/test.coffee:2:7: error: unexpected '
-        alert 'welcome
-              ^
+        err.message.should.eql 'missing ", starting'
+        err.toString().should.eql """
+        /Users/wdavidw/www/projects/github/connect-coffee-script/test/error/view/test.coffee:2:9: error: missing \", starting
+        alert \"\"\u001b[1;31m\"\u001b[0mwelcome
+        \u001b[1;31m        ^\u001b[0m
         """
         next()
