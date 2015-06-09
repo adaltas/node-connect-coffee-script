@@ -4,6 +4,7 @@
   "description": "Simple connect middleware to serve CoffeeScript files",
   "homepage": "https://github.com/wdavidw/node-connect-coffee-script",
   "author": "David Worms <david@adaltas.com> (http://www.adaltas.com)",
+  "license": "BSD-3-Clause",
   "contributors": [
     "David Worms <david@adaltas.com> (http://www.adaltas.com)",
     "Dave Wasmer <davewasmer@gmail.com> (https://github.com/davewasmer)",
