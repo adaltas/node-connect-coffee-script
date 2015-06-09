@@ -1,6 +1,6 @@
 {
   "name": "connect-coffee-script",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Simple connect middleware to serve CoffeeScript files",
   "homepage": "https://github.com/wdavidw/node-connect-coffee-script",
   "author": "David Worms <david@adaltas.com> (http://www.adaltas.com)",
